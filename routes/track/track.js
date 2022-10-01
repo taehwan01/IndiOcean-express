@@ -6,6 +6,10 @@ const trackController = new TrackController();
 
 router.get("/list", trackController.list);
 
-router.post("/add", (req, res) => {});
+router.post("/add", trackController.add);
+
+router.post("/update", trackController.update);
+
+router.get("/delete", trackController.delete);
 
 export default router;
