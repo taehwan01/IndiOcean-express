@@ -1,18 +1,25 @@
 {
   "name": "indiocean_",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "IndiOcean Server Development",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeMonte/IndiOcean_.git"
+  },
+  "author": "Monte",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codeMonte/IndiOcean_/issues"
+  },
+  "homepage": "https://github.com/codeMonte/IndiOcean_#readme",
   "dependencies": {
     "express": "^4.18.1",
-    "mysql": "^2.18.1",
-    "nodemon": "^2.0.20"
-  }
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {}
 }
