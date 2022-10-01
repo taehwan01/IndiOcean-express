@@ -1,23 +1,10 @@
 import express from "express";
-import mysql from "mysql";
+import TrackController from "./track.controller.js";
 
 const router = express.Router();
+const trackController = new TrackController();
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "9080",
-  database: "indiocean",
-});
-
-router.get("/list", (req, res) => {
-  connection.query("SELECT * FROM track", function (error, results, fields) {
-    if (error) console.log(error);
-    console.log("PRINT track DATA: ");
-    console.log(results);
-    res.json(results);
-  });
-});
+router.get("/list", trackController.list);
 
 router.post("/add", (req, res) => {});
 
