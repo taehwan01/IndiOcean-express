@@ -17,10 +17,17 @@ class TrackController {
     });
   };
   add = (req, res) => {
-    connection.query("INSERT INTO track (title, artist_name) VALUES (?, ?);", function (error, results, fields) {
-      if (error) console.log(error);
-      console.log("< " + req.query.title + " > track inserted");
-      return res.json(results);
+    let sql = "INSERT INTO track (title, artist_name) VALUES (?, ?);";
+    let title = req.query.title;
+    let artist_name = req.query.artist_name;
+    connection.query(sql, [title, artist_name], function (error, results, fields) {
+      if (error) {
+        console.log(error);
+        return res.status(400).json({ message: "Add failed" });
+      } else {
+        console.log("< " + req.query.title + " > track inserted");
+        return res.status(200).json({ message: "Add track success" });
+      }
     });
   };
   update = (req, res) => {
