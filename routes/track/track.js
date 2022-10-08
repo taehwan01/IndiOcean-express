@@ -8,10 +8,13 @@ const router = express.Router();
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, done) => {
-      done(null, "uploads");
+      const ext = path.extname(file.originalname);
+      if (ext === ".png" || ext === ".jpg") done(null, "uploads/image");
+      if (ext === ".wav" || ext === ".mp3") done(null, "uploads/audio");
     },
     filename: (req, file, done) => {
       const ext = path.extname(file.originalname);
+      console.log(ext);
       const filename = path.basename(file.originalname, ext) + "_" + Date.now() + ext;
       done(null, filename);
     },
@@ -22,7 +25,14 @@ const trackController = new TrackController();
 
 router.get("/list", trackController.list);
 
-router.post("/add", upload.array("filename"), trackController.add);
+router.post(
+  "/add",
+  upload.fields([
+    { name: "cover_image", maxCount: 1 },
+    { name: "audio_file", maxCount: 1 },
+  ]),
+  trackController.add
+);
 
 router.post("/update", trackController.update);
 

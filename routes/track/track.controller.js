@@ -17,20 +17,21 @@ class TrackController {
     });
   };
   add = (req, res) => {
-    let sql = "INSERT INTO track (title, artist_name, cover_image) VALUES (?, ?, ?);";
+    let sql = "INSERT INTO track (title, artist_name, cover_image, audio_file) VALUES (?, ?, ?, ?);";
     console.log(req.body);
-    console.log(req.files);
+    console.log("imgFILES: ", req.files);
+    // console.log("audFILES: ", req.files.audio_file[0].filename);
     let title = req.body.title;
     let artist_name = req.body.artist_name;
-    let filename = req.files[0].filename;
-    console.log("filename", filename);
-    connection.query(sql, [title, artist_name, filename], function (error, results, fields) {
+    let cover_image = req.files.cover_image[0].filename;
+    let audio_file = req.files.audio_file[0].filename;
+    connection.query(sql, [title, artist_name, cover_image, audio_file], function (error, results, fields) {
       if (error) {
         console.log(error);
         return res.status(400).json({ message: "Add failed" });
       } else {
         // console.log("< " + req.query.title + " > track inserted");
-        return res.status(200).json({ title: title, artist_name: artist_name, cover_image: filename, message: "Add track success" });
+        return res.status(200).json({ title: title, artist_name: artist_name, cover_image: cover_image, audio_file: audio_file, message: "Add track success" });
       }
     });
   };
