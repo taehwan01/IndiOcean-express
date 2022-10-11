@@ -9,8 +9,8 @@ const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, done) => {
       const ext = path.extname(file.originalname);
-      if (ext === ".png" || ext === ".jpg") done(null, "uploads/image");
-      if (ext === ".wav" || ext === ".mp3") done(null, "uploads/audio");
+      if (ext === ".png" || ext === ".jpg") done(null, "/Users/taehwan/Monte/IndiOcean/uploads/image");
+      if (ext === ".wav" || ext === ".mp3") done(null, "/Users/taehwan/Monte/IndiOcean/uploads/audio");
     },
     filename: (req, file, done) => {
       const ext = path.extname(file.originalname);
