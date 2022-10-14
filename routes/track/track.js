@@ -4,7 +4,9 @@ import path from "path";
 import TrackController from "./track.controller.js";
 
 const router = express.Router();
-// const upload = multer({ dest: "uploads/" });
+router.use("/list/uploads/image", express.static("uploads/image"));
+router.use("/list/uploads/audio", express.static("uploads/audio"));
+
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, done) => {
