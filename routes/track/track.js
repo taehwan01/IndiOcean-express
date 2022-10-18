@@ -1,29 +1,13 @@
 import express from "express";
-import multer from "multer";
-import path from "path";
-import TrackController from "./track.controller.js";
+import { upload, TrackController } from "./track.controller.js";
 
 const router = express.Router();
 router.use("/list/uploads/image", express.static("uploads/image"));
 router.use("/list/uploads/audio", express.static("uploads/audio"));
 
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: (req, file, done) => {
-      const ext = path.extname(file.originalname);
-      if (ext === ".png" || ext === ".jpg") done(null, "/Users/taehwan/Monte/IndiOcean/uploads/image");
-      if (ext === ".wav" || ext === ".mp3") done(null, "/Users/taehwan/Monte/IndiOcean/uploads/audio");
-    },
-    filename: (req, file, done) => {
-      const ext = path.extname(file.originalname);
-      console.log(ext);
-      const filename = path.basename(file.originalname, ext) + "_" + Date.now() + ext;
-      done(null, filename);
-    },
-  }),
-  limits: { fileSize: 5 * 1024 * 1024 },
-});
 const trackController = new TrackController();
+
+router.use(express.json({ limit: "50mb" }));
 
 router.get("/list", trackController.list);
 
@@ -35,6 +19,8 @@ router.post(
   ]),
   trackController.add
 );
+
+router.post("/test", trackController.test);
 
 router.post("/update", trackController.update);
 
